@@ -1,8 +1,44 @@
 package business;
 
+import java.util.Date;
+import java.util.List;
+
 public class ProjectManagementSystem {
 
-    // TODO: add, find and remove project (maybe select?)
+    private List<Project> projects;
+
+    public void addProject(String name, String description, Date startDate) {
+        // TODO: unique name
+        projects.add(new Project(name, description, startDate));
+    }
+
+    public Project findProject(String name) {
+        for (Project project: projects)
+            if (project.getName().equals(name))
+                return project;
+        throw new ProjectNotFoundException();
+    }
+
+    public boolean removeProject(Project project) {
+        return projects.remove(project);
+    }
+
+    public void addActivity(Project project, int number, String description, Date startDate, String deliverable) {
+        // TODO: unique number
+        project.getActivities().add(new Activity(number, description, startDate, deliverable));
+    }
+
+    public Activity findActivity(Project project, int number) {
+        for (Activity activity: project.getActivities())
+            if (activity.getNumber() == number)
+                return activity;
+        throw new ActivityNotFoundException();
+    }
+
+    public boolean removeActivity(Project project, Activity activity) {
+        return project.getActivities().remove(activity);
+    }
+
     // TODO: add, find and remove an activity in a project
     // TODO: add, find and remove a task in a project
     // TODO: add, find and remove a resource in a project
@@ -13,5 +49,18 @@ public class ProjectManagementSystem {
 
     // TODO: last user project
     // TODO: add or delete resource (Person), we can use ResourceFactory and ResourceSerializer
+
+
+    public static class ProjectNotFoundException extends RuntimeException {
+        public ProjectNotFoundException() {
+            super();
+        }
+    }
+
+    public static class ActivityNotFoundException extends RuntimeException {
+        public ActivityNotFoundException() {
+            super();
+        }
+    }
 
 }

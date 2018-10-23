@@ -2,21 +2,21 @@ package business;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Activity implements Serializable {
 
     private int number;
     private String description;
     private Date startDate;
-
-    // TODO: what does `deliverable` mean?
     private String deliverable;
+    private List<Task> tasks;
 
-    // TODO: deliverable
-    public Activity(int number, String description, Date startDate) {
+    public Activity(int number, String description, Date startDate, String deliverable) {
         setNumber(number);
         setDescription(description);
         setStartDate(startDate);
+        setDeliverable(deliverable);
     }
 
     public int getNumber() {
@@ -49,11 +49,18 @@ public class Activity implements Serializable {
         this.startDate = startDate;
     }
 
-    // TODO: implement getHours
     public int getHours() {
-        return 0;
+        return 0; // TODO: implement getHours
     }
 
-    // TODO: deliverable getter and setter
+    public String getDeliverable() {
+        return deliverable;
+    }
+
+    public void setDeliverable(String deliverable) {
+        if (deliverable == null || deliverable.equals(""))
+            throw new IllegalArgumentException("deliverable can not be null or empty.");
+        this.deliverable = deliverable;
+    }
 
 }
