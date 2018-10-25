@@ -5,6 +5,9 @@ import java.util.List;
 
 public class ProjectManagementSystem {
 
+	private int activityId = 0;
+	private int taskId = 0;
+
     private List<Project> projects;
 
     public void addProject(String name, String description, Date startDate) {
@@ -28,8 +31,8 @@ public class ProjectManagementSystem {
     }
 
     public void addActivity(Project project, int number, String description, Date startDate, String deliverable) {
-        // TODO: unique number
-        project.getActivities().add(new Activity(number, description, startDate, deliverable));
+        project.getActivities().add(new Activity(activityId, description, startDate, deliverable));
+        activityId++;
     }
 
     public Activity findActivity(Project project, int number) {
@@ -39,6 +42,7 @@ public class ProjectManagementSystem {
         throw new ActivityNotFoundException();
     }
 
+    // TODO (alpay question): do we need to find and delete activity by number or by activity object?
     public boolean removeActivity(Project project, Activity activity) {
         return project.getActivities().remove(activity);
     }
