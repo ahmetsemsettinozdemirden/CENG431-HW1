@@ -8,7 +8,9 @@ public class ProjectManagementSystem {
     private List<Project> projects;
 
     public void addProject(String name, String description, Date startDate) {
-        // TODO: unique name
+        if (projects.stream().anyMatch(p -> p.getName().equals(name))) {
+            throw new DuplicateProjectNameException();
+        }
         projects.add(new Project(name, description, startDate));
     }
 
@@ -59,6 +61,12 @@ public class ProjectManagementSystem {
 
     public static class ActivityNotFoundException extends RuntimeException {
         public ActivityNotFoundException() {
+            super();
+        }
+    }
+
+    public static class DuplicateProjectNameException extends RuntimeException {
+        public DuplicateProjectNameException() {
             super();
         }
     }
