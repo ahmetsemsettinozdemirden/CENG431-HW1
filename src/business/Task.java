@@ -11,9 +11,9 @@ public class Task implements Serializable {
 
     // TODO: what does `hours` and `resourceId mean?
     private int hours;
-    private int resourceId;
+    private Resource resource;
 
-    // TODO: hours, resourceId
+    // TODO: hours
     public Task(int number, String description, Date startDate) {
         setNumber(number);
         setDescription(description);
@@ -60,15 +60,13 @@ public class Task implements Serializable {
         this.hours = hours;
     }
 
-    // TODO: deliverable getter and setter
-
-    public int getResourceId() {
-        return resourceId;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setResourceId(int resourceId) {
-        if (resourceId < 0)
-            throw new IllegalArgumentException("resourceId can not be less than 0.");
-        this.resourceId = resourceId;
+    public void setResource(Resource resource) {
+        if (resource == null)
+            throw new IllegalArgumentException("resource can not be null.");
+        this.resource = resource;
     }
 }
