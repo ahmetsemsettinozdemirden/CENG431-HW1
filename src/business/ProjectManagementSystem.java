@@ -13,7 +13,7 @@ public class ProjectManagementSystem {
     public void addProject(String name, String description, Date startDate) {
         for (Project project: projects) {
         	if (project.getName().equals(name)) {
-        		throw new DuplicateProjectNameException();
+        		throw new IllegalArgumentException("Given name already being used by another project.");
 			}
 		}
         projects.add(new Project(name, description, startDate));
@@ -30,7 +30,7 @@ public class ProjectManagementSystem {
         return projects.remove(project);
     }
 
-    public void addActivity(Project project, int number, String description, Date startDate, String deliverable) {
+    public void addActivity(Project project, String description, Date startDate, String deliverable) {
         project.getActivities().add(new Activity(activityId, description, startDate, deliverable));
         activityId++;
     }
@@ -47,7 +47,8 @@ public class ProjectManagementSystem {
         return project.getActivities().remove(activity);
     }
 
-    // TODO: add, find and remove an activity in a project
+    public void addTask(Project project, String description, Date startDate, )
+
     // TODO: add, find and remove a task in a project
     // TODO: add, find and remove a resource in a project
     // TODO: assign a resource to a task in a project
@@ -67,12 +68,6 @@ public class ProjectManagementSystem {
 
     public static class ActivityNotFoundException extends RuntimeException {
         public ActivityNotFoundException() {
-            super();
-        }
-    }
-
-    public static class DuplicateProjectNameException extends RuntimeException {
-        public DuplicateProjectNameException() {
             super();
         }
     }
