@@ -11,14 +11,12 @@ public class Activity implements Serializable {
     private String description;
     private Date startDate;
     private String deliverable;
-    private List<Task> tasks;
 
     public Activity(int number, String description, Date startDate, String deliverable) {
         setNumber(number);
         setDescription(description);
         setStartDate(startDate);
         setDeliverable(deliverable);
-        this.tasks = new ArrayList<>();
     }
 
     public int getNumber() {
@@ -51,13 +49,6 @@ public class Activity implements Serializable {
         this.startDate = startDate;
     }
 
-    public int getHours() {
-        int hours = 0;
-        for (Task task: tasks)
-            hours += task.getHours();
-        return hours;
-    }
-
     public String getDeliverable() {
         return deliverable;
     }
@@ -66,10 +57,6 @@ public class Activity implements Serializable {
         if (deliverable == null || deliverable.equals(""))
             throw new IllegalArgumentException("deliverable can not be null or empty.");
         this.deliverable = deliverable;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
     }
 
 }

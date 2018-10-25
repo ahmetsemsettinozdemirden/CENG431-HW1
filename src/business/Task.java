@@ -8,16 +8,14 @@ public class Task implements Serializable {
     private int number;
     private String description;
     private Date startDate;
-    private Resource resource;
-
-    // TODO: what does `hours` mean?
     private int hours;
+    private int resourceId;
 
-    // TODO: hours
-    public Task(int number, String description, Date startDate) {
+    public Task(int number, String description, Date startDate, int hours) {
         setNumber(number);
         setDescription(description);
         setStartDate(startDate);
+        setHours(hours);
     }
 
     public int getNumber() {
@@ -60,14 +58,14 @@ public class Task implements Serializable {
         this.hours = hours;
     }
 
-    // TODO: what if resource null?
-    public Resource getResource() {
-        return resource;
+    public int getResourceId() {
+        return resourceId;
     }
 
-    public void setResource(Resource resource) {
-        if (resource == null)
-            throw new IllegalArgumentException("resource can not be null.");
-        this.resource = resource;
+    public void setResourceId(int resourceId) {
+        if (resourceId < 0)
+            throw new IllegalArgumentException("resource can not be less than 0.");
+        this.resourceId = resourceId;
     }
+
 }
