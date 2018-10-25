@@ -63,4 +63,7 @@ public class Activity implements Serializable {
         this.deliverable = deliverable;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
 }
