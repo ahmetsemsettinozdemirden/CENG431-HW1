@@ -8,9 +8,11 @@ public class ProjectManagementSystem {
     private List<Project> projects;
 
     public void addProject(String name, String description, Date startDate) {
-        if (projects.stream().anyMatch(p -> p.getName().equals(name))) {
-            throw new DuplicateProjectNameException();
-        }
+        for (Project project: projects) {
+        	if (project.getName().equals(name)) {
+        		throw new DuplicateProjectNameException();
+			}
+		}
         projects.add(new Project(name, description, startDate));
     }
 
