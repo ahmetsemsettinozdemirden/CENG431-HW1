@@ -8,10 +8,10 @@ public class Task implements Serializable {
     private int number;
     private String description;
     private Date startDate;
-
-    // TODO: what does `hours` and `resourceId mean?
-    private int hours;
     private Resource resource;
+
+    // TODO: what does `hours` mean?
+    private int hours;
 
     // TODO: hours
     public Task(int number, String description, Date startDate) {
@@ -60,6 +60,7 @@ public class Task implements Serializable {
         this.hours = hours;
     }
 
+    // TODO: what if resource null?
     public Resource getResource() {
         return resource;
     }
