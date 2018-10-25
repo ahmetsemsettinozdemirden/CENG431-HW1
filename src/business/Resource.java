@@ -17,7 +17,7 @@ public abstract class Resource {
         return resourceId;
     }
 
-    public void setResourceId(int resourceId) {
+    private void setResourceId(int resourceId) {
         if (resourceId < 0)
             throw new IllegalArgumentException("resourceId can not be less than 0.");
         this.resourceId = resourceId;

@@ -16,7 +16,7 @@ public class Project implements Serializable {
         setName(name);
         setDescription(description);
         setStartDate(startDate);
-        setActivities(new ArrayList<>());
+        this.activities = new ArrayList<>();
     }
 
     public String getName() {
@@ -39,6 +39,13 @@ public class Project implements Serializable {
         this.description = description;
     }
 
+    public int getHours() {
+        int hours = 0;
+        for (Activity activity: activities)
+            hours += activity.getHours();
+        return hours;
+    }
+
     public Date getStartDate() {
         return startDate;
     }
@@ -51,12 +58,6 @@ public class Project implements Serializable {
 
     public List<Activity> getActivities() {
         return activities;
-    }
-
-    public void setActivities(List<Activity> activities) {
-        if (activities == null)
-            throw new IllegalArgumentException("activities can not be null.");
-        this.activities = activities;
     }
 
 }

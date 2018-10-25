@@ -1,6 +1,7 @@
 package business;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class Activity implements Serializable {
         setDescription(description);
         setStartDate(startDate);
         setDeliverable(deliverable);
+        this.tasks = new ArrayList<>();
     }
 
     public int getNumber() {
@@ -50,7 +52,10 @@ public class Activity implements Serializable {
     }
 
     public int getHours() {
-        return 0; // TODO: implement getHours
+        int hours = 0;
+        for (Task task: tasks)
+            hours += task.getHours();
+        return hours;
     }
 
     public String getDeliverable() {
@@ -61,6 +66,10 @@ public class Activity implements Serializable {
         if (deliverable == null || deliverable.equals(""))
             throw new IllegalArgumentException("deliverable can not be null or empty.");
         this.deliverable = deliverable;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 
 }
