@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ProjectManagementSystem {
 
+	// TODO: Serialize these and when program started, load back last id values
 	private int activityId = 0;
 	private int taskId = 0;
 
@@ -23,10 +24,11 @@ public class ProjectManagementSystem {
         for (Project project: projects)
             if (project.getName().equals(name))
                 return project;
-        throw new ProjectNotFoundException();
+        throw new ProjectNotFoundException("Project with given name: " + name + " does not exist.");
     }
 
     public boolean removeProject(Project project) {
+    	// TODO (alpay question): do we need to remove all of its tasks, activities, etc?
         return projects.remove(project);
     }
 
@@ -39,7 +41,7 @@ public class ProjectManagementSystem {
         for (Activity activity: project.getActivities())
             if (activity.getNumber() == number)
                 return activity;
-        throw new ActivityNotFoundException();
+        throw new ActivityNotFoundException("Activity with id: " + number + " does not exist.");
     }
 
     // TODO (alpay question): do we need to find and delete activity by number or by activity object?
@@ -47,9 +49,23 @@ public class ProjectManagementSystem {
         return project.getActivities().remove(activity);
     }
 
-    public void addTask(Project project, String description, Date startDate, )
+    public void addTask(Activity activity, String description, Date startDate) {
+		activity.getTasks().add(new Task(taskId, description, startDate));
+		taskId++;
+	}
 
-    // TODO: add, find and remove a task in a project
+	public Task findTask(Activity activity, int number) {
+		for (Task task: activity.getTasks())
+			if (task.getNumber() == number)
+				return task;
+		throw new ActivityNotFoundException("Task with id: " + number + " does not exist.");
+	}
+
+	// TODO (alpay question): do we need to find and delete task by number or by task object?
+	public boolean removeTask(Activity activity, Task task) {
+    	return activity.getTasks().remove(task);
+	}
+
     // TODO: add, find and remove a resource in a project
     // TODO: assign a resource to a task in a project
     // TODO: unassign a resource from a task in a project
@@ -61,14 +77,14 @@ public class ProjectManagementSystem {
 
 
     public static class ProjectNotFoundException extends RuntimeException {
-        public ProjectNotFoundException() {
-            super();
+        public ProjectNotFoundException(String error) {
+        	super(error);
         }
     }
 
     public static class ActivityNotFoundException extends RuntimeException {
-        public ActivityNotFoundException() {
-            super();
+        public ActivityNotFoundException(String error) {
+            super(error);
         }
     }
 
