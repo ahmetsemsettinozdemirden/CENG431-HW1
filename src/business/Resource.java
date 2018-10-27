@@ -2,20 +2,20 @@ package business;
 
 public abstract class Resource {
 
-    private int resourceId;
+    private int id;
 
-    public Resource(int resourceId) {
-        setResourceId(resourceId);
+    public Resource(int id) {
+        setId(id);
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public int getId() {
+        return id;
     }
 
-    private void setResourceId(int resourceId) {
-        if (resourceId < 0)
-            throw new IllegalArgumentException("resourceId can not be less than 0.");
-        this.resourceId = resourceId;
+    public void setId(int id) {
+        if (id < 0)
+            throw new IllegalArgumentException("id can not be less than 0.");
+        this.id = id;
     }
 
 }

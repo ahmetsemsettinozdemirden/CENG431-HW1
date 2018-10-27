@@ -7,26 +7,28 @@ import java.util.List;
 
 public class Activity implements Serializable {
 
-    private int number;
+    private int id;
     private String description;
-    private Date startDate;
     private String deliverable;
+    private Date startDate;
+    private List<Task> tasks;
 
-    public Activity(int number, String description, Date startDate, String deliverable) {
-        setNumber(number);
+    public Activity(int id, String description, Date startDate, String deliverable) {
+        setId(id);
         setDescription(description);
         setStartDate(startDate);
         setDeliverable(deliverable);
+        this.tasks = new ArrayList<>();
     }
 
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        if (number < 0)
-            throw new IllegalArgumentException("number can not be less than 0.");
-        this.number = number;
+    public void setId(int id) {
+        if (id < 0)
+            throw new IllegalArgumentException("id can not be less than 0.");
+        this.id = id;
     }
 
     public String getDescription() {
@@ -39,16 +41,6 @@ public class Activity implements Serializable {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        if (startDate == null)
-            throw new IllegalArgumentException("startDate can not be null.");
-        this.startDate = startDate;
-    }
-
     public String getDeliverable() {
         return deliverable;
     }
@@ -59,4 +51,17 @@ public class Activity implements Serializable {
         this.deliverable = deliverable;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        if (startDate == null)
+            throw new IllegalArgumentException("startDate can not be null.");
+        this.startDate = startDate;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
 }

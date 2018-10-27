@@ -5,27 +5,27 @@ import java.util.Date;
 
 public class Task implements Serializable {
 
-    private int number;
+    private int id;
     private String description;
-    private Date startDate;
     private int hours;
-    private int resourceId;
+    private Date startDate;
+    private Resource resource;
 
-    public Task(int number, String description, Date startDate, int hours) {
-        setNumber(number);
+    public Task(int id, String description, int hours, Date startDate) {
+        setId(id);
         setDescription(description);
-        setStartDate(startDate);
         setHours(hours);
+        setStartDate(startDate);
     }
 
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        if (number < 0)
-            throw new IllegalArgumentException("number can not be less than 0.");
-        this.number = number;
+    public void setId(int id) {
+        if (id < 0)
+            throw new IllegalArgumentException("id can not be less than 0.");
+        this.id = id;
     }
 
     public String getDescription() {
@@ -38,16 +38,6 @@ public class Task implements Serializable {
         this.description = description;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        if (startDate == null)
-            throw new IllegalArgumentException("startDate can not be null.");
-        this.startDate = startDate;
-    }
-
     public int getHours() {
         return hours;
     }
@@ -58,14 +48,24 @@ public class Task implements Serializable {
         this.hours = hours;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setResourceId(int resourceId) {
-        if (resourceId < 0)
-            throw new IllegalArgumentException("resource can not be less than 0.");
-        this.resourceId = resourceId;
+    public void setStartDate(Date startDate) {
+        if (startDate == null)
+            throw new IllegalArgumentException("startDate can not be null.");
+        this.startDate = startDate;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        if (resource == null)
+            throw new IllegalArgumentException("resource can not be null.");
+        this.resource = resource;
     }
 
 }

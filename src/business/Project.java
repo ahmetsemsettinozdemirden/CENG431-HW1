@@ -10,11 +10,13 @@ public class Project implements Serializable {
     private String name;
     private String description;
     private Date startDate;
+    private List<Activity> activities;
 
     public Project(String name, String description, Date startDate) {
         setName(name);
         setDescription(description);
         setStartDate(startDate);
+        this.activities = new ArrayList<>();
     }
 
     public String getName() {
@@ -47,4 +49,7 @@ public class Project implements Serializable {
         this.startDate = startDate;
     }
 
+    public List<Activity> getActivities() {
+        return activities;
+    }
 }
