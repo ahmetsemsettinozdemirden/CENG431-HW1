@@ -66,7 +66,7 @@ public class ProjectManagementSystem {
 		for (Task task: activity.getTasks())
 			if (task.getId() == id)
 				return task;
-		throw new ActivityNotFoundException("Task with id: " + id + " does not exist.");
+		throw new TaskNotFoundException("Task with id: " + id + " does not exist.");
 	}
 
 	// TODO (alpay question): do we need to find and delete task by number or by task object?
@@ -87,11 +87,22 @@ public class ProjectManagementSystem {
         for (Resource resource: resources)
             if (resource.getId() == id)
                 return resources.remove(resource);
-        throw new ActivityNotFoundException("Task with id: " + id + " does not exist.");
+        throw new ResourceNotFoundException("Task with id: " + id + " does not exist.");
     }
 
-    // TODO: add, find and remove a resource in a project
+    public void assign(Resource resource, Task task) {
+        if (task.getResource().equals(resource))
+            ; // TODO: throw exception (resouce already assigned)
+        else
+            task.setResource(resource);
+    }
 
+    public void unassign(Resource resource, Task task) {
+        if (task.getResource().equals(resource))
+            task.setResource(null);
+        else
+            ; // TODO: throw exception (no assigned resource)
+    }
 
     // TODO: assign a resource to a task in a project
     // TODO: unassign a resource from a task in a project
@@ -101,8 +112,6 @@ public class ProjectManagementSystem {
     // TODO: last user project
     // TODO: add or delete resource (Person), we can use ResourceFactory and ResourceSerializer
 
-
-
     public static class ProjectNotFoundException extends RuntimeException {
         public ProjectNotFoundException(String error) {
         	super(error);
@@ -111,6 +120,18 @@ public class ProjectManagementSystem {
 
     public static class ActivityNotFoundException extends RuntimeException {
         public ActivityNotFoundException(String error) {
+            super(error);
+        }
+    }
+
+    public static class TaskNotFoundException extends RuntimeException {
+        public TaskNotFoundException(String error) {
+            super(error);
+        }
+    }
+
+    public static class ResourceNotFoundException extends RuntimeException {
+        public ResourceNotFoundException(String error) {
             super(error);
         }
     }
