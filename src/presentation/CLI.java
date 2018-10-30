@@ -89,7 +89,7 @@ public class CLI {
                 "3) Save&Exit\n");
 
         System.out.print("choose menu item: ");
-        switch (Integer.parseInt(scanner.next())) {
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 currentState = State.PROJECTS_MENU;
                 break;
@@ -120,7 +120,7 @@ public class CLI {
                 "5) Back to MainMenu\n"); // TODO: duration by hours of projects
 
         System.out.print("choose menu item: ");
-        switch (Integer.parseInt(scanner.next())) {
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 if (projectPortfolioManager.getProjects().isEmpty()) {
                     System.out.print("No projects.\n");
@@ -176,7 +176,7 @@ public class CLI {
                 "8) Back to Projects Menu\n");
 
         System.out.print("choose menu item: ");
-        switch (Integer.parseInt(scanner.next())) {
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 if (selectedProject.getActivities().isEmpty()) {
                     System.out.print("No activities.\n");
@@ -189,7 +189,7 @@ public class CLI {
                 break;
             case 2:
                 System.out.print("Enter the id of activity: ");
-                int activityId = scanner.nextInt();
+                int activityId = Integer.parseInt(scanner.nextLine());
                 selectedActivity = projectPortfolioManager.findActivity(selectedProject, activityId);
                 currentState = State.ACTIVITY_SELECTED;
                 break;
@@ -205,7 +205,7 @@ public class CLI {
                 break;
             case 4:
                 System.out.print("Enter the id of activity: ");
-                int removeActivityId = scanner.nextInt();
+                int removeActivityId = Integer.parseInt(scanner.nextLine());
                 Activity activity = projectPortfolioManager.findActivity(selectedProject, removeActivityId);
                 projectPortfolioManager.removeActivity(selectedProject, activity);
                 System.out.print("Activity successfully deleted.\n");
@@ -248,7 +248,7 @@ public class CLI {
                 "8) Back to '" + selectedProject.getName() + "' Project Menu\n");
 
         System.out.print("choose menu item: ");
-        switch (scanner.nextInt()) {
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 if (selectedActivity.getTasks().isEmpty()) {
                     System.out.print("No tasks.\n");
@@ -261,7 +261,7 @@ public class CLI {
                 break;
             case 2:
                 System.out.print("Enter the id of task: ");
-                int taskId = scanner.nextInt();
+                int taskId = Integer.parseInt(scanner.nextLine());
                 selectedTask = projectPortfolioManager.findTask(selectedActivity, taskId);
                 currentState = State.TASK_SELECTED;
                 break;
@@ -269,7 +269,7 @@ public class CLI {
                 System.out.print("Enter the description of new task: ");
                 String newTaskDescription = scanner.nextLine();
                 System.out.print("Enter the hours of new task: ");
-                int newTaskHours = scanner.nextInt();
+                int newTaskHours = Integer.parseInt(scanner.nextLine());
                 System.out.print("Enter the start date of new task(in format yyyy-MM-dd-HH): ");
                 Date newTaskStartDate = simpleDateFormat.parse(scanner.nextLine());
                 projectPortfolioManager.addTask(selectedActivity, newTaskDescription, newTaskHours, newTaskStartDate);
@@ -277,7 +277,7 @@ public class CLI {
                 break;
             case 4:
                 System.out.print("Enter the id of task: ");
-                int removeTaskId = scanner.nextInt();
+                int removeTaskId = Integer.parseInt(scanner.nextLine());
                 Task task = projectPortfolioManager.findTask(selectedActivity, removeTaskId);
                 projectPortfolioManager.removeTask(selectedActivity, task);
                 System.out.print("Task successfully deleted.\n");
@@ -334,7 +334,7 @@ public class CLI {
                 break;
             case 2:
                 System.out.print("Enter the id of resource: ");
-                int resourceId = scanner.nextInt();
+                int resourceId = Integer.parseInt(scanner.nextLine());
                 selectedResource = projectPortfolioManager.findResource(resourceId);
                 currentState = State.RESOURCE_SELECTED;
                 break;
@@ -344,7 +344,7 @@ public class CLI {
                         "1) Employee\n" +
                         "2) Consultant\n" +
                         "Enter the type of project: ");
-                int resourceType = scanner.nextInt();
+                int resourceType = Integer.parseInt(scanner.nextLine());
                 switch (resourceType) {
                     case 1:
                         System.out.print("Enter the name of new employee: ");
@@ -365,7 +365,7 @@ public class CLI {
                 break;
             case 4:
                 System.out.print("Enter the id of Resource: ");
-                int removeResourceId = scanner.nextInt();
+                int removeResourceId = Integer.parseInt(scanner.nextLine());
                 projectPortfolioManager.removeResource(removeResourceId);
                 System.out.print("Resource successfully deleted.\n");
                 break;
