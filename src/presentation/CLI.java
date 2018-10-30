@@ -28,9 +28,9 @@ public class CLI {
 
     private Project selectedProject;
 
-    public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectSerializer projectSerializer) {
+    public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
+        setProjectPortfolioManagerSerializer(projectPortfolioManagerSerializer);
         setProjectPortfolioManager(projectPortfolioManager);
-        setProjectSerializer(projectSerializer);
         this.scanner = new Scanner(System.in);
     }
 
@@ -204,10 +204,10 @@ public class CLI {
         this.projectPortfolioManager = projectPortfolioManager;
     }
 
-    private void setProjectSerializer(ProjectPortfolioManagerSerializer projectSerializer) {
-        if (projectSerializer == null)
-            throw new IllegalArgumentException("projectSerializer can not be null.");
-        this.projectPortfolioManagerSerializer = projectSerializer;
+    private void setProjectPortfolioManagerSerializer(ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
+        if (projectPortfolioManagerSerializer == null)
+            throw new IllegalArgumentException("projectPortfolioManagerSerializer can not be null.");
+        this.projectPortfolioManagerSerializer = projectPortfolioManagerSerializer;
     }
 
 }
