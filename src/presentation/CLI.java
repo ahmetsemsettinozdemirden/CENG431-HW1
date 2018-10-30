@@ -3,7 +3,7 @@ package presentation;
 import business.Project;
 import business.ProjectPortfolioManager;
 import business.Resource;
-import data.ProjectSerializer;
+import data.ProjectPortfolioManagerSerializer;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -21,7 +21,7 @@ public class CLI {
 
     }
 
-    private ProjectSerializer projectSerializer;
+    private ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer;
     private ProjectPortfolioManager projectPortfolioManager;
     private State currentState;
     private Scanner scanner;
@@ -76,7 +76,7 @@ public class CLI {
                 break;
             case 3:
                 try {
-                    projectSerializer.saveProjects(projectPortfolioManager.getProjects());
+                    projectPortfolioManagerSerializer.save(projectPortfolioManager);
                 } catch (Exception e) {
                     System.out.print("Error occured while saving! " + e.getMessage());
                 }
@@ -204,10 +204,10 @@ public class CLI {
         this.projectPortfolioManager = projectPortfolioManager;
     }
 
-    private void setProjectSerializer(ProjectSerializer projectSerializer) {
+    private void setProjectSerializer(ProjectPortfolioManagerSerializer projectSerializer) {
         if (projectSerializer == null)
             throw new IllegalArgumentException("projectSerializer can not be null.");
-        this.projectSerializer = projectSerializer;
+        this.projectPortfolioManagerSerializer = projectSerializer;
     }
 
 }
