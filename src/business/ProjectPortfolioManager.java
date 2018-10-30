@@ -95,6 +95,13 @@ public class ProjectPortfolioManager implements Serializable {
         resources.add(new Consultant(resourceId++, name));
     }
 
+    public Resource findResource(int id) {
+        for (Resource resource: resources)
+            if (resource.getId() == id)
+                return resource;
+        throw new ResourceNotFoundException("Resource with given id: " + id + " does not exist.");
+    }
+
     public boolean removeResource(int id) {
         for (Resource resource: resources)
             if (resource.getId() == id)
