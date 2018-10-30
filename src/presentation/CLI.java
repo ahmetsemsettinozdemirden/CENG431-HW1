@@ -4,6 +4,7 @@ import business.Activity;
 import business.Project;
 import business.ProjectPortfolioManager;
 import business.Resource;
+import business.Task;
 import business.person.Person;
 import data.ProjectPortfolioManagerSerializer;
 
@@ -21,6 +22,7 @@ public class CLI {
         PROJECTS_MENU,
         PROJECT_SELECTED,
         ACTIVITY_SELECTED,
+        TASK_SELECTED,
 
         RESOURCES_MENU,
         RESOURCE_SELECTED,
@@ -35,6 +37,7 @@ public class CLI {
     private State currentState;
     private Project selectedProject;
     private Activity selectedActivity;
+    private Task selectedTask;
     private Resource selectedResource;
 
     public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
@@ -60,6 +63,9 @@ public class CLI {
                         break;
                     case ACTIVITY_SELECTED:
                         activitySelectedMenu();
+                        break;
+                    case TASK_SELECTED:
+                        taskSelectedMenu();
                         break;
                     case RESOURCES_MENU:
                         resourcesMenu();
@@ -99,7 +105,7 @@ public class CLI {
                 System.exit(0);
                 break;
             default:
-                System.out.println("Invalid choice.\n");
+                System.out.print("Invalid choice.\n");
         }
     }
 
@@ -117,7 +123,7 @@ public class CLI {
         switch (scanner.nextInt()) {
             case 1:
                 if (projectPortfolioManager.getProjects().isEmpty()) {
-                    System.out.println("No projects.");
+                    System.out.print("No projects.");
                 } else {
                     System.out.println("All projects are listed below:");
                     for (Project project : projectPortfolioManager.getProjects()) {
@@ -144,15 +150,15 @@ public class CLI {
             case 4:
                 System.out.print("Enter the name of project: ");
                 String removeProjectName = scanner.next();
-                Project removeProject = projectPortfolioManager.findProject(removeProjectName);
-                projectPortfolioManager.removeProject(removeProject);
+                Project project = projectPortfolioManager.findProject(removeProjectName);
+                projectPortfolioManager.removeProject(project);
                 System.out.print("Project successfully deleted.\n");
                 break;
             case 5:
                 currentState = State.MAIN_MENU;
                 break;
             default:
-                System.out.println("Invalid choice.\n");
+                System.out.print("Invalid choice.\n");
         }
     }
 
@@ -173,7 +179,7 @@ public class CLI {
         switch (scanner.nextInt()) {
             case 1:
                 if (selectedProject.getActivities().isEmpty()) {
-                    System.out.println("No activities.\n");
+                    System.out.print("No activities.\n");
                 } else {
                     System.out.println("All activities are listed below:");
                     for (Activity activity: selectedProject.getActivities()) {
@@ -190,9 +196,9 @@ public class CLI {
             case 3:
                 System.out.print("Enter the description of new activity: ");
                 String newActivityDescription = scanner.next();
-                System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
+                System.out.print("Enter the start date of new activity(in format yyyy-MM-dd-HH): ");
                 Date newActivityStartDate = simpleDateFormat.parse(scanner.next());
-                System.out.print("Enter the description of new activity: ");
+                System.out.print("Enter the deliverable of new activity: ");
                 String newActivityDeliverable = scanner.next();
                 projectPortfolioManager.addActivity(selectedProject, newActivityDescription, newActivityStartDate, newActivityDeliverable);
                 System.out.print("Activity successfully created.\n");
@@ -200,18 +206,12 @@ public class CLI {
             case 4:
                 System.out.print("Enter the id of activity: ");
                 int removeActivityId = scanner.nextInt();
-                projectPortfolioManager.removeActivity(selectedProject, projectPortfolioManager.findActivity(selectedProject, removeActivityId));
+                Activity activity = projectPortfolioManager.findActivity(selectedProject, removeActivityId);
+                projectPortfolioManager.removeActivity(selectedProject, activity);
                 System.out.print("Activity successfully deleted.\n");
                 break;
             case 5:
-                System.out.print("Enter the name of new project: ");
-                String newProjectName = scanner.next();
-                System.out.print("Enter the description of new project: ");
-                String newProjectDescription = scanner.next();
-                System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
-                Date newProjectStartDate = simpleDateFormat.parse(scanner.next());
-                projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
-                System.out.print("Project successfully created.\n");
+
                 break;
             case 6:
                 System.out.print("Enter the name: ");
@@ -226,14 +226,87 @@ public class CLI {
                 System.out.print("Project description successfully updated.\n");
                 break;
             case 8:
+                selectedProject = null;
                 currentState = State.PROJECTS_MENU;
                 break;
             default:
-                System.out.println("Invalid choice.\n");
+                System.out.print("Invalid choice.\n");
         }
     }
 
-    private void activitySelectedMenu() {
+    private void activitySelectedMenu() throws ParseException {
+
+        System.out.print("----------------------------\n" +
+                "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
+                "1) List tasks\n" +
+                "2) Select task\n" +
+                "3) Add task\n" +
+                "4) Remove task\n" +
+                "5) List all assigned resources\n" +
+                "6) Update deliverable\n" +
+                "7) Update description\n" +
+                "8) Back to '" + selectedProject.getName() + "' Project Menu\n");
+
+        System.out.print("choose menu item: ");
+        switch (scanner.nextInt()) {
+            case 1:
+                if (selectedActivity.getTasks().isEmpty()) {
+                    System.out.print("No tasks.\n");
+                } else {
+                    System.out.println("All tasks are listed below:");
+                    for (Task task: selectedActivity.getTasks()) {
+                        System.out.print("* " + task + "\n");
+                    }
+                }
+                break;
+            case 2:
+                System.out.print("Enter the id of task: ");
+                int taskId = scanner.nextInt();
+                selectedTask = projectPortfolioManager.findTask(selectedActivity, taskId);
+                currentState = State.TASK_SELECTED;
+                break;
+            case 3:
+                System.out.print("Enter the description of new task: ");
+                String newTaskDescription = scanner.next();
+                System.out.print("Enter the hours of new task: ");
+                int newTaskHours = scanner.nextInt();
+                System.out.print("Enter the start date of new task(in format yyyy-MM-dd-HH): ");
+                Date newTaskStartDate = simpleDateFormat.parse(scanner.next());
+                projectPortfolioManager.addTask(selectedActivity, newTaskDescription, newTaskHours, newTaskStartDate);
+                System.out.print("Task successfully created.\n");
+                break;
+            case 4:
+                System.out.print("Enter the id of task: ");
+                int removeTaskId = scanner.nextInt();
+                Task task = projectPortfolioManager.findTask(selectedActivity, removeTaskId);
+                projectPortfolioManager.removeTask(selectedActivity, task);
+                System.out.print("Task successfully deleted.\n");
+                break;
+            case 5:
+
+                break;
+            case 6:
+                System.out.print("Enter the deliverable: ");
+                String updateActivityDeliverable = scanner.next();
+                selectedActivity.setDeliverable(updateActivityDeliverable);
+                System.out.print("Activity deliverable successfully updated.\n");
+                break;
+            case 7:
+                System.out.print("Enter the description: ");
+                String updateActivityDescription = scanner.next();
+                selectedActivity.setDescription(updateActivityDescription);
+                System.out.print("Activity description successfully updated.\n");
+                break;
+            case 8:
+                selectedActivity = null;
+                currentState = State.PROJECTS_MENU;
+                break;
+            default:
+                System.out.print("Invalid choice.\n");
+        }
+    }
+
+    private void taskSelectedMenu() {
 
     }
 
@@ -251,7 +324,7 @@ public class CLI {
         switch (scanner.nextInt()) {
             case 1:
                 if (projectPortfolioManager.getResources().isEmpty()) {
-                    System.out.println("No resources.\n");
+                    System.out.print("No resources.\n");
                 } else {
                     System.out.println("All resources are listed below:");
                     for (Resource resource: projectPortfolioManager.getResources()) {
@@ -286,7 +359,7 @@ public class CLI {
                         System.out.print("Consultant successfully created.\n");
                         break;
                     default:
-                        System.out.println("Invalid choice.\n");
+                        System.out.print("Invalid choice.\n");
                         return;
                 }
                 break;
@@ -300,7 +373,7 @@ public class CLI {
                 currentState = State.MAIN_MENU;
                 break;
             default:
-                System.out.println("Invalid choice.\n");
+                System.out.print("Invalid choice.\n");
         }
     }
 
@@ -328,7 +401,7 @@ public class CLI {
                     currentState = State.RESOURCES_MENU;
                     break;
                 default:
-                    System.out.println("Invalid choice.\n");
+                    System.out.print("Invalid choice.\n");
             }
 
         } else {
