@@ -4,8 +4,12 @@ import business.ProjectPortfolioManager;
 
 import java.io.*;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class ProjectPortfolioManagerSerializer {
 
@@ -33,7 +37,7 @@ public class ProjectPortfolioManagerSerializer {
     }
 
     public void save(ProjectPortfolioManager projectPortfolioManager) throws Exception {
-        File file = new File(folderName + "/" + fileNamePrefix + dateFormat.format(new Date()) +  " .txt");
+        File file = new File(folderName + "/" + fileNamePrefix + dateFormat.format(new Date()) +  ".txt");
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(projectPortfolioManager);
@@ -41,16 +45,33 @@ public class ProjectPortfolioManagerSerializer {
         objectOutputStream.close();
     }
 
-    private File findLatestFile(File[] projectsFiles) throws FileNotFoundException {
-        String fileName = fileNamePrefix + dateFormat.format(new Date()) +  " .txt";
+    private File findLatestFile(File[] projectsFiles) {
+
+        List<Date> fileDates = new ArrayList<>();
 
         for (File file: projectsFiles) {
-            if (file.getName().equals(fileName)) {
+            String name = file.getName().replace(fileNamePrefix, "").replace(".txt", "");
+            try {
+                fileDates.add(dateFormat.parse(name));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        fileDates.sort(Collections.reverseOrder());
+
+        for (File file: projectsFiles) {
+            if (file.getName().equals(returnFileName(fileDates.get(0)))) {
                 return file;
             }
         }
 
-        throw new FileNotFoundException();
+        File file = new File(returnFileName(new Date()));
+        return file;
+    }
+
+    private String returnFileName (Date date) {
+        return fileNamePrefix + dateFormat.format(date) +  ".txt";
     }
 
 }
