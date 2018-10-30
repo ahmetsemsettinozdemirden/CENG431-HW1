@@ -111,7 +111,7 @@ public class CLI {
                 } else {
                     System.out.println("All projects are listed below:");
                     for (Project project : projectPortfolioManager.getProjects()) {
-                        System.out.print("* " + project.getName());
+                        System.out.print("* " + project.getName() + "\n");
                     }
                 }
                 break;
