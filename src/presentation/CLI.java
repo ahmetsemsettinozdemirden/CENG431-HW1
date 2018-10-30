@@ -1,7 +1,10 @@
 package presentation;
 
-import business.ProjectManagementSystem;
+import business.Project;
+import business.ProjectPortfolioManager;
+import data.ProjectSerializer;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class CLI {
@@ -17,13 +20,15 @@ public class CLI {
 
     }
 
-    private ProjectManagementSystem projectManagementSystem;
+    private ProjectSerializer projectSerializer;
+    private ProjectPortfolioManager projectPortfolioManager;
     private State currentState;
     private Scanner scanner;
 
     // TODO: inject serializer
-    public CLI(ProjectManagementSystem projectManagementSystem) {
-        setProjectManagementSystem(projectManagementSystem);
+    public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectSerializer projectSerializer) {
+        setProjectPortfolioManager(projectPortfolioManager);
+        this.projectSerializer = projectSerializer;
         this.scanner = new Scanner(System.in);
     }
 
@@ -49,7 +54,8 @@ public class CLI {
 
     private void mainMenu() {
 
-        System.out.print("  Project Management System\n" +
+        System.out.print("\n----------------------------\n" +
+                "=> Project Portfolio Manager\n" +
                 "1) Projects\n" +
                 "2) Resources\n" +
                 "3) Save&Exit\n");
@@ -63,7 +69,11 @@ public class CLI {
                 currentState = State.RESOURCES_MENU;
                 break;
             case 3:
-                // TODO: save
+                try {
+                    projectSerializer.saveProjects(projectPortfolioManager.getProjects());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 System.exit(0);
                 break;
             default:
@@ -73,7 +83,8 @@ public class CLI {
 
     private void projectsMenu() {
 
-        System.out.print("  Projects\n" +
+        System.out.print("\n----------------------------\n" +
+                "=> Projects\n" +
                 "1) Select project\n" +
                 "2) List projects\n" +
                 "3) Add project\n" +
@@ -86,16 +97,26 @@ public class CLI {
                 // TODO: select project
                 break;
             case 2:
-                // TODO
+                for (Project project: projectPortfolioManager.getProjects()) {
+                    System.out.print("* " + project.getName());
+                }
                 break;
             case 3:
-                // TODO: sa
+                System.out.print("Enter the name of project: ");
+                String name = scanner.next();
+                System.out.print("Enter the description of project: ");
+                String description = scanner.next();
+                System.out.print("Enter the start date of project: ");
+                Date date = new Date();
+                projectPortfolioManager.addProject(name, description, date);
+
+                System.out.print("Project successfully created.");
                 break;
             case 4:
                 // TODO: sa
                 break;
             case 5:
-                // TODO: sa
+                currentState = State.MAIN_MENU;
                 break;
             default:
                 System.out.println("Invalid choice.");
@@ -104,7 +125,8 @@ public class CLI {
 
     private void resourcesMenu() {
 
-        System.out.print("  Resources\n" +
+        System.out.print("\n----------------------------\n" +
+                "=> Resources\n" +
                 "1) Select resource\n" +
                 "2) List resources\n" +
                 "3) Add resource\n" +
@@ -112,10 +134,10 @@ public class CLI {
                 "5) Back to MainMenu\n");
     }
 
-    private void setProjectManagementSystem(ProjectManagementSystem projectManagementSystem) {
-        if (projectManagementSystem == null)
-            throw new IllegalArgumentException("projectManagementSystem can not be null.");
-        this.projectManagementSystem = projectManagementSystem;
+    private void setProjectPortfolioManager(ProjectPortfolioManager projectPortfolioManager) {
+        if (projectPortfolioManager == null)
+            throw new IllegalArgumentException("projectPortfolioManager can not be null.");
+        this.projectPortfolioManager = projectPortfolioManager;
     }
 
 }

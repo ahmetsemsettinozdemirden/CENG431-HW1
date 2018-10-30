@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectManagementSystem {
+public class ProjectPortfolioManager {
 
 	private int activityId;
 	private int taskId;
@@ -15,12 +15,16 @@ public class ProjectManagementSystem {
     private List<Project> projects;
     private List<Resource> resources;
 
-    public ProjectManagementSystem() {
+    public ProjectPortfolioManager() {
         this.activityId = 1;
         this.taskId = 1;
         this.resourceId = 1;
         this.projects = new ArrayList<>();
         this.resources = new ArrayList<>();
+    }
+
+    public List<Project> getProjects() {
+        return projects;
     }
 
     public void addProject(String name, String description, Date startDate) {

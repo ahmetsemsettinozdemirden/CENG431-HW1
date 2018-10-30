@@ -5,7 +5,7 @@ import business.Project;
 import java.io.*;
 import java.util.List;
 
-public class ProjectManagementSystemSerializer {
+public class ProjectSerializer {
 
     // TODO: take care of Exceptions
     private final String filenamePrefix = "Projects-";
