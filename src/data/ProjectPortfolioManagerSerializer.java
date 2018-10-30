@@ -66,7 +66,23 @@ public class ProjectPortfolioManagerSerializer {
             }
         }
 
-        File file = new File(returnFileName(new Date()));
+        // if no file detected, create new ProjectPortfolioManager object and save it to new txt file
+        // then return that created file
+
+        File file = new File(folderName + "/" + fileNamePrefix + dateFormat.format(new Date()) +  ".txt");
+
+        try {
+            if(file.createNewFile()) {
+                System.out.println("New project file created..");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            save(new ProjectPortfolioManager());
+        } catch (Exception e) {
+            System.out.print("Error occurred while saving! " + e.getMessage() + "\n");
+        }
         return file;
     }
 
