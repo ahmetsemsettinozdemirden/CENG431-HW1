@@ -6,7 +6,7 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer = new ProjectPortfolioManagerSerializer();
-        ProjectPortfolioManager projectPortfolioManager = projectPortfolioManagerSerializer.loadLatest();
+        ProjectPortfolioManager projectPortfolioManager = new ProjectPortfolioManager();//projectPortfolioManagerSerializer.loadLatest();
 
         CLI cli = new CLI(projectPortfolioManager, projectPortfolioManagerSerializer);
         cli.start();

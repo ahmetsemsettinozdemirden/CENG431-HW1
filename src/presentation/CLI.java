@@ -83,7 +83,7 @@ public class CLI {
                 "3) Save&Exit\n");
 
         System.out.print("choose menu item: ");
-        switch (scanner.nextInt()) {
+        switch (Integer.parseInt(scanner.next())) {
             case 1:
                 currentState = State.PROJECTS_MENU;
                 break;
@@ -114,7 +114,7 @@ public class CLI {
                 "5) Back to MainMenu\n"); // TODO: duration by hours of projects
 
         System.out.print("choose menu item: ");
-        switch (scanner.nextInt()) {
+        switch (Integer.parseInt(scanner.next())) {
             case 1:
                 if (projectPortfolioManager.getProjects().isEmpty()) {
                     System.out.println("No projects.");
@@ -170,7 +170,7 @@ public class CLI {
                 "8) Back to Projects Menu\n");
 
         System.out.print("choose menu item: ");
-        switch (scanner.nextInt()) {
+        switch (Integer.parseInt(scanner.next())) {
             case 1:
                 if (selectedProject.getActivities().isEmpty()) {
                     System.out.println("No activities.\n");
@@ -248,7 +248,7 @@ public class CLI {
                 "5) Back to MainMenu\n");
 
         System.out.print("choose menu item: ");
-        switch (scanner.nextInt()) {
+        switch (Integer.parseInt(scanner.next())) {
             case 1:
                 if (projectPortfolioManager.getResources().isEmpty()) {
                     System.out.println("No resources.\n");
@@ -317,7 +317,7 @@ public class CLI {
                     "2) Back to Resources Menu\n");
 
             System.out.print("choose menu item: ");
-            switch (scanner.nextInt()) {
+            switch (Integer.parseInt(scanner.next())) {
                 case 1:
                     System.out.print("Enter the name: ");
                     String name = scanner.next();
