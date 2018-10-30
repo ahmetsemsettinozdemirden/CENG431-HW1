@@ -5,6 +5,8 @@ import business.ProjectPortfolioManager;
 import business.Resource;
 import data.ProjectPortfolioManagerSerializer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -25,13 +27,14 @@ public class CLI {
     private ProjectPortfolioManager projectPortfolioManager;
     private State currentState;
     private Scanner scanner;
-
+    private SimpleDateFormat simpleDateFormat;
     private Project selectedProject;
 
     public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
         setProjectPortfolioManagerSerializer(projectPortfolioManagerSerializer);
         setProjectPortfolioManager(projectPortfolioManager);
         this.scanner = new Scanner(System.in);
+        this.simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH");
     }
 
     public void start() {
@@ -87,7 +90,7 @@ public class CLI {
         }
     }
 
-    private void projectsMenu() {
+    private void projectsMenu() throws ParseException {
 
         System.out.print("\n----------------------------\n" +
                 "     Projects\n" +
@@ -120,8 +123,8 @@ public class CLI {
                 String newProjectName = scanner.next();
                 System.out.print("Enter the description of project: ");
                 String newProjectDescription = scanner.next();
-                System.out.print("Enter the start date of project: ");
-                Date newProjectStartDate = new Date(); // TODO: date formatter
+                System.out.print("Enter the start date of project(in format yyyy-MM-dd-HH): ");
+                Date newProjectStartDate = simpleDateFormat.parse(scanner.next());
                 projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
                 System.out.print("Project successfully created.");
                 break;
@@ -141,7 +144,7 @@ public class CLI {
     }
 
 
-    private void resourcesMenu() {
+    private void resourcesMenu() throws ParseException {
 
         System.out.print("\n----------------------------\n" +
                 "     Resources\n" +
@@ -179,7 +182,7 @@ public class CLI {
                 System.out.print("Enter the description of project: ");
                 String newProjectDescription = scanner.next();
                 System.out.print("Enter the start date of project: ");
-                Date newProjectStartDate = new Date(); // TODO: date formatter
+                Date newProjectStartDate = simpleDateFormat.parse(scanner.next());
                 projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
                 System.out.print("Project successfully created.");
                 break;
