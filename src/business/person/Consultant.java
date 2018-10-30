@@ -8,6 +8,6 @@ public class Consultant extends Person {
 
     @Override
     public String toString() {
-        return "Id: " + this.getId() + ", name: " + this.getName() + " (" + this.getClass().getName() + ")";
+        return "Id: " + this.getId() + ", name: " + this.getName() + " (" + this.getClass().getSimpleName() + ")";
     }
 }

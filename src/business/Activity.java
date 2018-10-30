@@ -91,6 +91,6 @@ public class Activity implements Serializable, Hourly, Resource.Resourcable {
                 ", hours: " + this.getHours() +
                 ", start date: " + this.getStartDate().toString() +
                 ", tasks count: " + this.getTasks().size() +
-                " (" + this.getClass().getName() + ")";
+                " (" + this.getClass().getSimpleName() + ")";
     }
 }
