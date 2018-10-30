@@ -91,23 +91,30 @@ public class ProjectManagementSystem {
     }
 
     public void assign(Resource resource, Task task) {
-        if (task.getResource().equals(resource))
-            ; // TODO: throw exception (resouce already assigned)
-        else
+        if (task.getResource().equals(resource)) {
+            return; // TODO: throw exception (resouce already assigned)
+        } else {
             task.setResource(resource);
+            resource.getTasks().add(task);
+        }
     }
 
     public void unassign(Resource resource, Task task) {
-        if (task.getResource().equals(resource))
+        if (task.getResource().equals(resource)) {
             task.setResource(null);
-        else
-            ; // TODO: throw exception (no assigned resource)
+            resource.getTasks().remove(task);
+        } else {
+            return; // TODO: throw exception (no assigned resource)
+        }
     }
 
-    // TODO: assign a resource to a task in a project
-    // TODO: unassign a resource from a task in a project
-    // TODO: calculating project, activity, and task duration by hours
-    // TODO: finding number of distinct employees and consultants assigned to a project, activity, and task
+    public int getHours(Hourly hourly) {
+        return hourly.getHours();
+    }
+
+    public List<Resource> getResources(Resource.Resourcable resourcable) {
+        return resourcable.getResources();
+    }
 
     // TODO: last user project
     // TODO: add or delete resource (Person), we can use ResourceFactory and ResourceSerializer

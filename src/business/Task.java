@@ -1,9 +1,11 @@
 package business;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
-public class Task implements Serializable {
+public class Task implements Serializable, Hourly, Resource.Resourcable {
 
     private int id;
     private String description;
@@ -38,6 +40,7 @@ public class Task implements Serializable {
         this.description = description;
     }
 
+    @Override
     public int getHours() {
         return hours;
     }
@@ -60,6 +63,11 @@ public class Task implements Serializable {
 
     public Resource getResource() {
         return resource;
+    }
+
+    @Override
+    public List<Resource> getResources() {
+        return Collections.singletonList(resource);
     }
 
     public void setResource(Resource resource) {

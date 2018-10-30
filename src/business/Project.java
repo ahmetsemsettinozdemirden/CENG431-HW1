@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Project implements Serializable {
+public class Project implements Serializable, Hourly, Resource.Resourcable {
 
     private String name;
     private String description;
@@ -51,5 +51,23 @@ public class Project implements Serializable {
 
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    @Override
+    public int getHours() {
+        int hours = 0;
+        for (Activity activity: activities) {
+            hours += activity.getHours();
+        }
+        return hours;
+    }
+
+    @Override
+    public List<Resource> getResources() {
+        List<Resource> resources = new ArrayList<>();
+        for (Activity activity: activities) {
+            resources.addAll(activity.getResources());
+        }
+        return resources;
     }
 }
