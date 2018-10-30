@@ -3,11 +3,12 @@ package business;
 import business.person.Consultant;
 import business.person.Employee;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProjectPortfolioManager {
+public class ProjectPortfolioManager implements Serializable {
 
 	private int activityId;
 	private int taskId;

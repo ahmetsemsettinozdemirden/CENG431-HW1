@@ -2,7 +2,7 @@ package presentation;
 
 import business.Project;
 import business.ProjectPortfolioManager;
-import data.ProjectSerializer;
+import data.ProjectPortfolioManagerSerializer;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -20,15 +20,15 @@ public class CLI {
 
     }
 
-    private ProjectSerializer projectSerializer;
+    private ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer;
     private ProjectPortfolioManager projectPortfolioManager;
     private State currentState;
     private Scanner scanner;
 
     // TODO: inject serializer
-    public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectSerializer projectSerializer) {
+    public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
         setProjectPortfolioManager(projectPortfolioManager);
-        this.projectSerializer = projectSerializer;
+        this.projectPortfolioManagerSerializer = projectPortfolioManagerSerializer;
         this.scanner = new Scanner(System.in);
     }
 
@@ -70,7 +70,7 @@ public class CLI {
                 break;
             case 3:
                 try {
-                    projectSerializer.saveProjects(projectPortfolioManager.getProjects());
+                    projectPortfolioManagerSerializer.save(projectPortfolioManager);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
