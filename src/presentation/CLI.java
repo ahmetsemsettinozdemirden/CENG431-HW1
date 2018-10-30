@@ -5,6 +5,8 @@ import business.ProjectPortfolioManager;
 import business.Resource;
 import data.ProjectPortfolioManagerSerializer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -25,13 +27,14 @@ public class CLI {
     private ProjectPortfolioManager projectPortfolioManager;
     private State currentState;
     private Scanner scanner;
-
+    private SimpleDateFormat simpleDateFormat;
     private Project selectedProject;
 
     public CLI(ProjectPortfolioManager projectPortfolioManager, ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer) {
         setProjectPortfolioManagerSerializer(projectPortfolioManagerSerializer);
         setProjectPortfolioManager(projectPortfolioManager);
         this.scanner = new Scanner(System.in);
+        this.simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH");
     }
 
     public void start() {
@@ -78,7 +81,7 @@ public class CLI {
                 try {
                     projectPortfolioManagerSerializer.save(projectPortfolioManager);
                 } catch (Exception e) {
-                    System.out.print("Error occured while saving! " + e.getMessage());
+                    System.out.print("Error occurred while saving! " + e.getMessage());
                 }
                 System.exit(0);
                 break;
@@ -87,7 +90,7 @@ public class CLI {
         }
     }
 
-    private void projectsMenu() {
+    private void projectsMenu() throws ParseException {
 
         System.out.print("\n----------------------------\n" +
                 "     Projects\n" +
@@ -116,12 +119,12 @@ public class CLI {
                 }
                 break;
             case 3:
-                System.out.print("Enter the name of project: ");
+                System.out.print("Enter the name of new project: ");
                 String newProjectName = scanner.next();
-                System.out.print("Enter the description of project: ");
+                System.out.print("Enter the description of new project: ");
                 String newProjectDescription = scanner.next();
-                System.out.print("Enter the start date of project: ");
-                Date newProjectStartDate = new Date(); // TODO: date formatter
+                System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
+                Date newProjectStartDate = simpleDateFormat.parse(scanner.next());
                 projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
                 System.out.print("Project successfully created.");
                 break;
@@ -141,7 +144,7 @@ public class CLI {
     }
 
 
-    private void resourcesMenu() {
+    private void resourcesMenu() throws ParseException {
 
         System.out.print("\n----------------------------\n" +
                 "     Resources\n" +
@@ -154,41 +157,49 @@ public class CLI {
         System.out.print("choose menu item: ");
         switch (scanner.nextInt()) {
             case 1:
+
+                currentState = State.PROJECT_SELECTED;
+                break;
+            case 2:
+                if (projectPortfolioManager.getProjects().isEmpty()) {
+                    System.out.println("No resources.");
+                } else {
+                    System.out.println("All resources are listed below:");
+                    for (Resource resource: projectPortfolioManager.getResources()) {
+                        System.out.print("* " + resource); // TODO: toString
+                    }
+                }
+                break;
+            case 3:
                 System.out.print("\n----------------------------\n" +
                         "     Resource Types\n" +
                         "1) Employee\n" +
                         "2) Consultant\n" +
                         "Enter the type of project: ");
                 int resourceType = scanner.nextInt();
-
-                currentState = State.PROJECT_SELECTED;
-                break;
-            case 2:
-                if (projectPortfolioManager.getProjects().isEmpty()) {
-                    System.out.println("No projects.");
-                } else {
-                    System.out.println("All projects are listed below:");
-                    for (Project project : projectPortfolioManager.getProjects()) {
-                        System.out.print("* " + project.getName());
-                    }
+                switch (resourceType) {
+                    case 1:
+                        System.out.print("Enter the name of new employee: ");
+                        String newEmployeeName = scanner.next();
+                        projectPortfolioManager.createEmployee(newEmployeeName);
+                        System.out.print("Employee successfully created.");
+                        break;
+                    case 2:
+                        System.out.print("Enter the name of new consultant: ");
+                        String newConsultantName = scanner.next();
+                        projectPortfolioManager.createConsultant(newConsultantName);
+                        System.out.print("Consultant successfully created.");
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                        return;
                 }
                 break;
-            case 3:
-                System.out.print("Enter the name of project: ");
-                String newProjectName = scanner.next();
-                System.out.print("Enter the description of project: ");
-                String newProjectDescription = scanner.next();
-                System.out.print("Enter the start date of project: ");
-                Date newProjectStartDate = new Date(); // TODO: date formatter
-                projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
-                System.out.print("Project successfully created.");
-                break;
             case 4:
-                System.out.print("Enter the name of project: ");
-                String removeProjectName = scanner.next();
-                Project removeProject = projectPortfolioManager.findProject(removeProjectName);
-                projectPortfolioManager.removeProject(removeProject);
-                System.out.print("Project successfully deleted.");
+                System.out.print("Enter the id of Resource: ");
+                int removeResourceId = scanner.nextInt();
+                projectPortfolioManager.removeResource(removeResourceId);
+                System.out.print("Resource successfully deleted.");
                 break;
             case 5:
                 currentState = State.MAIN_MENU;
