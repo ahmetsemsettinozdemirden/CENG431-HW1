@@ -123,7 +123,7 @@ public class CLI {
         switch (scanner.nextInt()) {
             case 1:
                 if (projectPortfolioManager.getProjects().isEmpty()) {
-                    System.out.print("No projects.");
+                    System.out.print("No projects.\n");
                 } else {
                     System.out.println("All projects are listed below:");
                     for (Project project : projectPortfolioManager.getProjects()) {
@@ -382,7 +382,7 @@ public class CLI {
         System.out.print("----------------------------\n" +
                 "     '" + selectedResource + "' is selected.\n");
 
-        if (selectedResource.getClass().equals(Person.class)) {
+        if (selectedResource instanceof Person) {
 
             Person selectedPerson = (Person) selectedResource;
 
