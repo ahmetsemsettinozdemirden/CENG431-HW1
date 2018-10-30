@@ -2,6 +2,7 @@ package presentation;
 
 import business.Project;
 import business.ProjectPortfolioManager;
+import business.Resource;
 import data.ProjectPortfolioManagerSerializer;
 
 import java.util.Date;
@@ -184,10 +185,10 @@ public class CLI {
         this.projectPortfolioManager = projectPortfolioManager;
     }
 
-    private void setProjectSerializer(ProjectSerializer projectSerializer) {
+    private void setProjectSerializer(ProjectPortfolioManagerSerializer projectSerializer) {
         if (projectSerializer == null)
             throw new IllegalArgumentException("projectSerializer can not be null.");
-        this.projectSerializer = projectSerializer;
+        this.projectPortfolioManagerSerializer = projectSerializer;
     }
 
 }
