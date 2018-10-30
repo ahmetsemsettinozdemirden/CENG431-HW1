@@ -1,9 +1,10 @@
 package business;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Resource {
+public abstract class Resource implements Serializable {
 
     public interface Resourcable {
 

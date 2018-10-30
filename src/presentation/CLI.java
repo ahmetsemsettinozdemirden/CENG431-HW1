@@ -133,23 +133,23 @@ public class CLI {
                 break;
             case 2:
                 System.out.print("Enter the name of project: ");
-                String projectName = scanner.next();
+                String projectName = scanner.nextLine();
                 selectedProject = projectPortfolioManager.findProject(projectName);
                 currentState = State.PROJECT_SELECTED;
                 break;
             case 3:
                 System.out.print("Enter the name of new project: ");
-                String newProjectName = scanner.next();
+                String newProjectName = scanner.nextLine();
                 System.out.print("Enter the description of new project: ");
-                String newProjectDescription = scanner.next();
+                String newProjectDescription = scanner.nextLine();
                 System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
-                Date newProjectStartDate = simpleDateFormat.parse(scanner.next());
+                Date newProjectStartDate = simpleDateFormat.parse(scanner.nextLine());
                 projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
                 System.out.print("Project successfully created.\n");
                 break;
             case 4:
                 System.out.print("Enter the name of project: ");
-                String removeProjectName = scanner.next();
+                String removeProjectName = scanner.nextLine();
                 Project project = projectPortfolioManager.findProject(removeProjectName);
                 projectPortfolioManager.removeProject(project);
                 System.out.print("Project successfully deleted.\n");
@@ -195,11 +195,11 @@ public class CLI {
                 break;
             case 3:
                 System.out.print("Enter the description of new activity: ");
-                String newActivityDescription = scanner.next();
+                String newActivityDescription = scanner.nextLine();
                 System.out.print("Enter the start date of new activity(in format yyyy-MM-dd-HH): ");
-                Date newActivityStartDate = simpleDateFormat.parse(scanner.next());
+                Date newActivityStartDate = simpleDateFormat.parse(scanner.nextLine());
                 System.out.print("Enter the deliverable of new activity: ");
-                String newActivityDeliverable = scanner.next();
+                String newActivityDeliverable = scanner.nextLine();
                 projectPortfolioManager.addActivity(selectedProject, newActivityDescription, newActivityStartDate, newActivityDeliverable);
                 System.out.print("Activity successfully created.\n");
                 break;
@@ -215,13 +215,13 @@ public class CLI {
                 break;
             case 6:
                 System.out.print("Enter the name: ");
-                String updateProjectName = scanner.next();
+                String updateProjectName = scanner.nextLine();
                 selectedProject.setName(updateProjectName);
                 System.out.print("Project name successfully updated.\n");
                 break;
             case 7:
                 System.out.print("Enter the description: ");
-                String updateProjectDescription = scanner.next();
+                String updateProjectDescription = scanner.nextLine();
                 selectedProject.setDescription(updateProjectDescription);
                 System.out.print("Project description successfully updated.\n");
                 break;
@@ -267,11 +267,11 @@ public class CLI {
                 break;
             case 3:
                 System.out.print("Enter the description of new task: ");
-                String newTaskDescription = scanner.next();
+                String newTaskDescription = scanner.nextLine();
                 System.out.print("Enter the hours of new task: ");
                 int newTaskHours = scanner.nextInt();
                 System.out.print("Enter the start date of new task(in format yyyy-MM-dd-HH): ");
-                Date newTaskStartDate = simpleDateFormat.parse(scanner.next());
+                Date newTaskStartDate = simpleDateFormat.parse(scanner.nextLine());
                 projectPortfolioManager.addTask(selectedActivity, newTaskDescription, newTaskHours, newTaskStartDate);
                 System.out.print("Task successfully created.\n");
                 break;
@@ -287,13 +287,13 @@ public class CLI {
                 break;
             case 6:
                 System.out.print("Enter the deliverable: ");
-                String updateActivityDeliverable = scanner.next();
+                String updateActivityDeliverable = scanner.nextLine();
                 selectedActivity.setDeliverable(updateActivityDeliverable);
                 System.out.print("Activity deliverable successfully updated.\n");
                 break;
             case 7:
                 System.out.print("Enter the description: ");
-                String updateActivityDescription = scanner.next();
+                String updateActivityDescription = scanner.nextLine();
                 selectedActivity.setDescription(updateActivityDescription);
                 System.out.print("Activity description successfully updated.\n");
                 break;
@@ -348,13 +348,13 @@ public class CLI {
                 switch (resourceType) {
                     case 1:
                         System.out.print("Enter the name of new employee: ");
-                        String newEmployeeName = scanner.next();
+                        String newEmployeeName = scanner.nextLine();
                         projectPortfolioManager.createEmployee(newEmployeeName);
                         System.out.print("Employee successfully created.\n");
                         break;
                     case 2:
                         System.out.print("Enter the name of new consultant: ");
-                        String newConsultantName = scanner.next();
+                        String newConsultantName = scanner.nextLine();
                         projectPortfolioManager.createConsultant(newConsultantName);
                         System.out.print("Consultant successfully created.\n");
                         break;
@@ -393,7 +393,7 @@ public class CLI {
             switch (scanner.nextInt()) {
                 case 1:
                     System.out.print("Enter the name: ");
-                    String name = scanner.next();
+                    String name = scanner.nextLine();
                     selectedPerson.setName(name);
                     System.out.print("Person name successfully updated.\n");
                     break;
