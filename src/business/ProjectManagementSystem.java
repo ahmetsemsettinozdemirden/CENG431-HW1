@@ -16,7 +16,11 @@ public class ProjectManagementSystem {
     private List<Resource> resources;
 
     public ProjectManagementSystem() {
+        this.activityId = 1;
+        this.taskId = 1;
+        this.resourceId = 1;
         this.projects = new ArrayList<>();
+        this.resources = new ArrayList<>();
     }
 
     public void addProject(String name, String description, Date startDate) {
