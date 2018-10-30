@@ -4,7 +4,6 @@ import business.Activity;
 import business.Project;
 import business.ProjectPortfolioManager;
 import business.Resource;
-import business.person.Employee;
 import business.person.Person;
 import data.ProjectPortfolioManagerSerializer;
 
@@ -70,7 +69,7 @@ public class CLI {
                         break;
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("error: " + e.getMessage() + "\n");
             }
         }
     }
@@ -189,8 +188,20 @@ public class CLI {
                 currentState = State.ACTIVITY_SELECTED;
                 break;
             case 3:
+                System.out.print("Enter the description of new activity: ");
+                String newActivityDescription = scanner.next();
+                System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
+                Date newActivityStartDate = simpleDateFormat.parse(scanner.next());
+                System.out.print("Enter the description of new activity: ");
+                String newActivityDeliverable = scanner.next();
+                projectPortfolioManager.addActivity(selectedProject, newActivityDescription, newActivityStartDate, newActivityDeliverable);
+                System.out.print("Activity successfully created.\n");
                 break;
             case 4:
+                System.out.print("Enter the id of activity: ");
+                int removeActivityId = scanner.nextInt();
+                projectPortfolioManager.removeActivity(selectedProject, projectPortfolioManager.findActivity(selectedProject, removeActivityId));
+                System.out.print("Activity successfully deleted.\n");
                 break;
             case 5:
                 System.out.print("Enter the name of new project: ");
