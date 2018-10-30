@@ -78,9 +78,13 @@ public class Task implements Serializable, Hourly, Resource.Resourcable {
 
     @Override
     public String toString() {
-        String resource = getResource() == null ? "no resource assigned" : getResource().toString();
-        return "Id: " + this.getId() + ", description: " + this.getDescription() + ", hours: " + this.getHours() +
-                ", start date: " + this.getStartDate().toString() + ", resource: " + resource + " (" + this.getClass().getName() + ")";
+        String resourceText = getResource() == null ? "no resource assigned" : getResource().toString();
+        return "Id: " + this.getId() +
+                ", description: " + this.getDescription() +
+                ", hours: " + this.getHours() +
+                ", start date: " + this.getStartDate().toString() +
+                ", resource: " + resourceText +
+                " (" + this.getClass().getName() + ")";
     }
 
 }
