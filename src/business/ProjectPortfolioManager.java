@@ -104,7 +104,7 @@ public class ProjectPortfolioManager implements Serializable {
 
     public void assign(Resource resource, Task task) {
         if (task.getResource().equals(resource)) {
-            return; // TODO: throw exception (resouce already assigned)
+            throw new ResourceAlreadyAssignedException("Task already assigned to the this resource");
         } else {
             task.setResource(resource);
             resource.getTasks().add(task);
@@ -116,7 +116,7 @@ public class ProjectPortfolioManager implements Serializable {
             task.setResource(null);
             resource.getTasks().remove(task);
         } else {
-            return; // TODO: throw exception (no assigned resource)
+            throw new ResourceNotFoundException("Task does not have a resource to unassign");
         }
     }
 
@@ -151,6 +151,12 @@ public class ProjectPortfolioManager implements Serializable {
 
     public static class ResourceNotFoundException extends RuntimeException {
         public ResourceNotFoundException(String error) {
+            super(error);
+        }
+    }
+
+    public static class ResourceAlreadyAssignedException extends RuntimeException {
+        public ResourceAlreadyAssignedException(String error) {
             super(error);
         }
     }
