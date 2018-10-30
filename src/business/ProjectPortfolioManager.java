@@ -82,7 +82,10 @@ public class ProjectPortfolioManager {
     	return activity.getTasks().remove(task);
 	}
 
-	// create and delete resource
+    public List<Resource> getResources() {
+        return resources;
+    }
+
     public void createEmployee(String name) {
         resources.add(new Employee(resourceId++, name));
     }
@@ -91,7 +94,7 @@ public class ProjectPortfolioManager {
         resources.add(new Consultant(resourceId++, name));
     }
 
-    public boolean deleteResource(int id) {
+    public boolean removeResource(int id) {
         for (Resource resource: resources)
             if (resource.getId() == id)
                 return resources.remove(resource);
