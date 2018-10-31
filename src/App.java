@@ -4,9 +4,17 @@ import presentation.CLI;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+
         ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer = new ProjectPortfolioManagerSerializer();
-        ProjectPortfolioManager projectPortfolioManager = new ProjectPortfolioManager();//projectPortfolioManagerSerializer.loadLatest();
+        ProjectPortfolioManager projectPortfolioManager;
+
+        try {
+            projectPortfolioManager = projectPortfolioManagerSerializer.loadLatest();;
+        } catch (Exception e) {
+            System.out.print("load file error: " + e.getMessage());
+            return;
+        }
 
         CLI cli = new CLI(projectPortfolioManager, projectPortfolioManagerSerializer);
         cli.start();

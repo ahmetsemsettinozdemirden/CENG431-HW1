@@ -74,6 +74,7 @@ public class CLI {
                         resourceSelectedMenu();
                         break;
                 }
+                Thread.sleep(1000);
             } catch (Exception e) {
                 System.out.println("error: " + e.getMessage() + "\n");
             }
@@ -172,9 +173,10 @@ public class CLI {
                 "3) Add activity\n" +
                 "4) Remove activity\n" +
                 "5) List all assigned resources\n" +
-                "6) Update name\n" +
-                "7) Update description\n" +
-                "8) Back to Projects Menu\n");
+                "6) Duration by hours\n" +
+                "7) Update name\n" +
+                "8) Update description\n" +
+                "9) Back to Projects Menu\n");
 
         System.out.print("choose menu item: ");
         switch (Integer.parseInt(scanner.nextLine())) {
@@ -222,18 +224,21 @@ public class CLI {
                 }
                 break;
             case 6:
+                System.out.print("Duration by hours:" + projectPortfolioManager.getHours(selectedProject) + "\n");
+                break;
+            case 7:
                 System.out.print("Enter the name: ");
                 String updateProjectName = scanner.nextLine();
                 selectedProject.setName(updateProjectName);
                 System.out.print("Project name successfully updated.\n");
                 break;
-            case 7:
+            case 8:
                 System.out.print("Enter the description: ");
                 String updateProjectDescription = scanner.nextLine();
                 selectedProject.setDescription(updateProjectDescription);
                 System.out.print("Project description successfully updated.\n");
                 break;
-            case 8:
+            case 9:
                 selectedProject = null;
                 currentState = State.PROJECTS_MENU;
                 break;
@@ -252,9 +257,10 @@ public class CLI {
                 "3) Add task\n" +
                 "4) Remove task\n" +
                 "5) List all assigned resources\n" +
-                "6) Update deliverable\n" +
-                "7) Update description\n" +
-                "8) Back to '" + selectedProject.getName() + "' Project Menu\n");
+                "6) Duration by hours\n" +
+                "7) Update deliverable\n" +
+                "8) Update description\n" +
+                "9) Back to '" + selectedProject.getName() + "' Project Menu\n");
 
         System.out.print("choose menu item: ");
         switch (Integer.parseInt(scanner.nextLine())) {
@@ -302,18 +308,21 @@ public class CLI {
                 }
                 break;
             case 6:
+                System.out.print("Duration by hours:" + projectPortfolioManager.getHours(selectedActivity) + "\n");
+                break;
+            case 7:
                 System.out.print("Enter the deliverable: ");
                 String updateActivityDeliverable = scanner.nextLine();
                 selectedActivity.setDeliverable(updateActivityDeliverable);
                 System.out.print("Activity deliverable successfully updated.\n");
                 break;
-            case 7:
+            case 8:
                 System.out.print("Enter the description: ");
                 String updateActivityDescription = scanner.nextLine();
                 selectedActivity.setDescription(updateActivityDescription);
                 System.out.print("Activity description successfully updated.\n");
                 break;
-            case 8:
+            case 9:
                 selectedActivity = null;
                 currentState = State.PROJECT_SELECTED;
                 break;
@@ -350,7 +359,7 @@ public class CLI {
 
                 break;
             case 4:
-                System.out.print("Duration by hours:" + selectedTask.getHours() + "\n");
+                System.out.print("Duration by hours:" + projectPortfolioManager.getHours(selectedTask) + "\n");
                 break;
             case 5:
                 System.out.print("Enter the description: ");
