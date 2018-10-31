@@ -165,6 +165,7 @@ public class CLI {
     private void projectSelectedMenu() throws ParseException {
 
         System.out.print("----------------------------\n" +
+                "     Project Selected Menu\n" +
                 "     '" + selectedProject.getName() + "' is selected.\n" +
                 "1) List activities\n" +
                 "2) Select activity\n" +
@@ -244,6 +245,7 @@ public class CLI {
     private void activitySelectedMenu() throws ParseException {
 
         System.out.print("----------------------------\n" +
+                "     Activity Selected Menu\n" +
                 "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
                 "1) List tasks\n" +
                 "2) Select task\n" +
@@ -323,6 +325,7 @@ public class CLI {
     private void taskSelectedMenu() {
 
         System.out.print("----------------------------\n" +
+                "     Task Selected Menu\n" +
                 "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
                 "1) Show resource\n" +
                 "2) Assign resource\n" +
@@ -376,7 +379,7 @@ public class CLI {
                 "5) Back to MainMenu\n");
 
         System.out.print("choose menu item: ");
-        switch (Integer.parseInt(scanner.next())) {
+        switch (Integer.parseInt(scanner.nextLine())) {
             case 1:
                 if (projectPortfolioManager.getResources().isEmpty()) {
                     System.out.print("No resources.\n");
@@ -435,6 +438,7 @@ public class CLI {
     private void resourceSelectedMenu() {
 
         System.out.print("----------------------------\n" +
+                "     Task Selected Menu\n" +
                 "     '" + selectedResource + "' is selected.\n");
 
         if (selectedResource instanceof Person) {
@@ -445,7 +449,7 @@ public class CLI {
                     "2) Back to Resources Menu\n");
 
             System.out.print("choose menu item: ");
-            switch (Integer.parseInt(scanner.next())) {
+            switch (Integer.parseInt(scanner.nextLine())) {
                 case 1:
                     System.out.print("Enter the name: ");
                     String name = scanner.nextLine();

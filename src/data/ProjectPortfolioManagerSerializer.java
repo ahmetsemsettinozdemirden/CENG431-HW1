@@ -18,7 +18,6 @@ public class ProjectPortfolioManagerSerializer {
     private final String fileNamePrefix = "Projects-";
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-
     public ProjectPortfolioManager loadLatest() throws IOException, ClassNotFoundException {
 
         File appdata = new File("appdata");
