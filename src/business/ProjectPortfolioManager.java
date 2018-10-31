@@ -123,12 +123,15 @@ public class ProjectPortfolioManager implements Serializable {
     }
 
     public void unassign(Resource resource, Task task) {
-        if (task.getResource().equals(resource)) {
-            task.setResource(null);
-            resource.getTasks().remove(task);
-        } else {
+    	if (task.getResource() == null ) {
             throw new ResourceNotFoundException("Task does not have a resource to unassign");
-        }
+		}
+        else if (task.getResource().equals(resource)) {
+			task.setResource(null);
+			resource.getTasks().remove(task);
+		} else {
+			throw new ResourceNotFoundException("Given resource is not assigned to this task. Thus, you can not unassign it");
+		}
     }
 
     public int getHours(Hourly hourly) {
