@@ -353,10 +353,25 @@ public class CLI {
                 }
                 break;
             case 2:
-
+                if (projectPortfolioManager.getResources().isEmpty()) {
+                    System.out.print("No resources.\n");
+                    break;
+                } else {
+                    System.out.println("All resources are listed below:");
+                    for (Resource resource: projectPortfolioManager.getResources()) {
+                        System.out.print("* " + resource + "\n");
+                    }
+                }
+                System.out.print("Enter the id of resource: ");
+                int assignResourceId = Integer.parseInt(scanner.nextLine());
+                Resource assignResource = projectPortfolioManager.findResource(assignResourceId);
+                projectPortfolioManager.assign(assignResource, selectedTask);
                 break;
             case 3:
-
+                System.out.print("Enter the id of resource: ");
+                int unassignResourceId = Integer.parseInt(scanner.nextLine());
+                Resource unassignResource = projectPortfolioManager.findResource(unassignResourceId);
+                projectPortfolioManager.unassign(unassignResource, selectedTask);
                 break;
             case 4:
                 System.out.print("Duration by hours:" + projectPortfolioManager.getHours(selectedTask) + "\n");

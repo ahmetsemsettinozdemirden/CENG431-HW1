@@ -78,7 +78,9 @@ public class Activity implements Serializable, Hourly, Resource.Resourcable {
     public List<Resource> getResources() {
         List<Resource> resources = new ArrayList<>();
         for (Task task: tasks) {
-            resources.add(task.getResource());
+            if (task.getResource() != null) {
+                resources.add(task.getResource());
+            }
         }
         return resources;
     }
