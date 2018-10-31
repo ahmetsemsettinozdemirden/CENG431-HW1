@@ -78,6 +78,6 @@ public class Project implements Serializable, Hourly, Resource.Resourcable {
                 ", hours: " + this.getHours() +
                 ", start date: " + this.getStartDate().toString() +
                 ", activities count: " + this.getActivities().size() +
-                " (" + this.getClass().getName() + ")";
+                " (" + this.getClass().getSimpleName() + ")";
     }
 }

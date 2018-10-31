@@ -84,7 +84,7 @@ public class Task implements Serializable, Hourly, Resource.Resourcable {
                 ", hours: " + this.getHours() +
                 ", start date: " + this.getStartDate().toString() +
                 ", resource: " + resourceText +
-                " (" + this.getClass().getName() + ")";
+                " (" + this.getClass().getSimpleName() + ")";
     }
 
 }
