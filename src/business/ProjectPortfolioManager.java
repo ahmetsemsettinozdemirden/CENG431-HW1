@@ -46,7 +46,6 @@ public class ProjectPortfolioManager implements Serializable {
         throw new ProjectNotFoundException("Project with given name: " + name + " does not exist.");
     }
 
-    // TODO (alpay question): do we need to remove all of its tasks, activities, etc?
     public boolean removeProject(Project project) {
         return projects.remove(project);
     }
@@ -62,7 +61,6 @@ public class ProjectPortfolioManager implements Serializable {
         throw new ActivityNotFoundException("Activity with id: " + id + " does not exist.");
     }
 
-    // TODO (alpay question): do we need to find and delete activity by number or by activity object?
     public boolean removeActivity(Project project, Activity activity) {
         return project.getActivities().remove(activity);
     }
@@ -78,7 +76,6 @@ public class ProjectPortfolioManager implements Serializable {
 		throw new TaskNotFoundException("Task with id: " + id + " does not exist.");
 	}
 
-	// TODO (alpay question): do we need to find and delete task by number or by task object?
 	public boolean removeTask(Activity activity, Task task) {
     	return activity.getTasks().remove(task);
 	}
