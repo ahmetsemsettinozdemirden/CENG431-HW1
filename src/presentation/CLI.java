@@ -9,7 +9,6 @@ import business.person.Person;
 import data.ProjectPortfolioManagerSerializer;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -32,7 +31,6 @@ public class CLI {
     private ProjectPortfolioManagerSerializer projectPortfolioManagerSerializer;
     private ProjectPortfolioManager projectPortfolioManager;
     private Scanner scanner;
-    private SimpleDateFormat simpleDateFormat;
 
     private State currentState;
     private Project selectedProject;
@@ -44,7 +42,6 @@ public class CLI {
         setProjectPortfolioManagerSerializer(projectPortfolioManagerSerializer);
         setProjectPortfolioManager(projectPortfolioManager);
         this.scanner = new Scanner(System.in);
-        this.simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH");
     }
 
     public void start() {
@@ -143,8 +140,7 @@ public class CLI {
                 String newProjectName = scanner.nextLine();
                 System.out.print("Enter the description of new project: ");
                 String newProjectDescription = scanner.nextLine();
-                System.out.print("Enter the start date of new project(in format yyyy-MM-dd-HH): ");
-                Date newProjectStartDate = simpleDateFormat.parse(scanner.nextLine());
+                Date newProjectStartDate = new Date();
                 projectPortfolioManager.addProject(newProjectName, newProjectDescription, newProjectStartDate);
                 System.out.print("Project successfully created.\n");
                 break;
@@ -199,8 +195,7 @@ public class CLI {
             case 3:
                 System.out.print("Enter the description of new activity: ");
                 String newActivityDescription = scanner.nextLine();
-                System.out.print("Enter the start date of new activity(in format yyyy-MM-dd-HH): ");
-                Date newActivityStartDate = simpleDateFormat.parse(scanner.nextLine());
+                Date newActivityStartDate = new Date();
                 System.out.print("Enter the deliverable of new activity: ");
                 String newActivityDeliverable = scanner.nextLine();
                 projectPortfolioManager.addActivity(selectedProject, newActivityDescription, newActivityStartDate, newActivityDeliverable);
@@ -285,8 +280,7 @@ public class CLI {
                 String newTaskDescription = scanner.nextLine();
                 System.out.print("Enter the hours of new task: ");
                 int newTaskHours = Integer.parseInt(scanner.nextLine());
-                System.out.print("Enter the start date of new task(in format yyyy-MM-dd-HH): ");
-                Date newTaskStartDate = simpleDateFormat.parse(scanner.nextLine());
+                Date newTaskStartDate = new Date();
                 projectPortfolioManager.addTask(selectedActivity, newTaskDescription, newTaskHours, newTaskStartDate);
                 System.out.print("Task successfully created.\n");
                 break;
