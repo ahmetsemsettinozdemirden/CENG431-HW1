@@ -22,11 +22,11 @@ public class ProjectPortfolioManagerSerializer {
 
         File appdata = new File("appdata");
         if (!appdata.exists() || !appdata.isDirectory())
-            return null; // TODO: throw exception -> `appdata should exist and be a folder`
+            throw new AppdataFolderNotFoundException("Appdata folder not found!");
 
         File[] projectsFiles = appdata.listFiles();
         if (projectsFiles == null)
-            throw new FileNotFoundException();
+            throw new IOException("No backup files found");
 
         FileInputStream fileInputStream = new FileInputStream(findLatestFile(projectsFiles));
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -36,7 +36,7 @@ public class ProjectPortfolioManagerSerializer {
     }
 
     public void save(ProjectPortfolioManager projectPortfolioManager) throws Exception {
-        File file = new File(folderName + "/" + fileNamePrefix + dateFormat.format(new Date()) +  ".txt");
+        File file = new File(returnFilePath(new Date()));
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
         objectOutputStream.writeObject(projectPortfolioManager);
@@ -46,47 +46,58 @@ public class ProjectPortfolioManagerSerializer {
 
     private File findLatestFile(File[] projectsFiles) {
 
-        List<Date> fileDates = new ArrayList<>();
+        // if project backup files detected, find and return latest one
+        if (projectsFiles.length > 0) {
+            List<Date> fileDates = new ArrayList<>();
 
-        for (File file: projectsFiles) {
-            String name = file.getName().replace(fileNamePrefix, "").replace(".txt", "");
+            for (File file: projectsFiles) {
+                String name = file.getName().replace(fileNamePrefix, "").replace(".txt", "");
+                try {
+                    fileDates.add(dateFormat.parse(name));
+                } catch (ParseException e) {
+                    throw new InvalidFileNameException("Found files with invalid names at Appdata folder.");
+                }
+            }
+
+            // sort files wrt. their dates
+            fileDates.sort(Collections.reverseOrder());
+
+            return new File(returnFilePath(fileDates.get(0)));
+        }
+
+        // if no file detected, create new project backup file then return that created file
+        else {
+            File file = new File(returnFilePath(new Date()));
+
             try {
-                fileDates.add(dateFormat.parse(name));
-            } catch (ParseException e) {
+                if(file.createNewFile()) {
+                    System.out.println("New project backup file created..");
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        fileDates.sort(Collections.reverseOrder());
-
-        for (File file: projectsFiles) {
-            if (file.getName().equals(returnFileName(fileDates.get(0)))) {
-                return file;
+            try {
+                save(new ProjectPortfolioManager());
+            } catch (Exception e) {
+                System.out.print("Error occurred while saving! " + e.getMessage() + "\n");
             }
+            return file;
         }
-
-        // if no file detected, create new ProjectPortfolioManager object and save it to new txt file
-        // then return that created file
-
-        File file = new File(folderName + "/" + fileNamePrefix + dateFormat.format(new Date()) +  ".txt");
-
-        try {
-            if(file.createNewFile()) {
-                System.out.println("New project file created..");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            save(new ProjectPortfolioManager());
-        } catch (Exception e) {
-            System.out.print("Error occurred while saving! " + e.getMessage() + "\n");
-        }
-        return file;
     }
 
-    private String returnFileName (Date date) {
-        return fileNamePrefix + dateFormat.format(date) +  ".txt";
+    private String returnFilePath(Date date) {
+        return folderName + "/" + fileNamePrefix + dateFormat.format(date) +  ".txt";
     }
 
+    public static class AppdataFolderNotFoundException extends RuntimeException {
+        public AppdataFolderNotFoundException(String error) {
+            super(error);
+        }
+    }
+
+    public static class InvalidFileNameException extends RuntimeException {
+        public InvalidFileNameException(String error) {
+            super(error);
+        }
+    }
 }

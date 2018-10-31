@@ -10,7 +10,7 @@ public class App {
         ProjectPortfolioManager projectPortfolioManager;
 
         try {
-            projectPortfolioManager = new ProjectPortfolioManager();//projectPortfolioManagerSerializer.loadLatest();
+            projectPortfolioManager = projectPortfolioManagerSerializer.loadLatest();
         } catch (Exception e) {
             System.out.print("load file error: " + e.getMessage());
             return;
