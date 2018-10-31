@@ -71,8 +71,6 @@ public class Task implements Serializable, Hourly, Resource.Resourcable {
     }
 
     public void setResource(Resource resource) {
-        if (resource == null)
-            throw new IllegalArgumentException("resource can not be null.");
         this.resource = resource;
     }
 

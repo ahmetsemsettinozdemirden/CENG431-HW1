@@ -104,13 +104,17 @@ public class ProjectPortfolioManager implements Serializable {
 
     public boolean removeResource(int id) {
         for (Resource resource: resources)
-            if (resource.getId() == id)
+            if (resource.getId() == id) {
+                for (Task task: resource.getTasks()) {
+                    task.setResource(null);
+                }
                 return resources.remove(resource);
+            }
         throw new ResourceNotFoundException("Task with id: " + id + " does not exist.");
     }
 
     public void assign(Resource resource, Task task) {
-        if (task.getResource().equals(resource)) {
+        if (task.getResource() != null && task.getResource().equals(resource)) {
             throw new ResourceAlreadyAssignedException("Task already assigned to the this resource");
         } else {
             task.setResource(resource);
