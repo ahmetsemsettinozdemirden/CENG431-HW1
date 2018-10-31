@@ -22,7 +22,7 @@ public class ProjectPortfolioManagerSerializer {
 
         File appdata = new File("appdata");
         if (!appdata.exists() || !appdata.isDirectory())
-            throw new AppdataFolderNotFoundException("Appdata folder not found!");
+            appdata.mkdirs();
 
         File[] projectsFiles = appdata.listFiles();
         if (projectsFiles == null)
