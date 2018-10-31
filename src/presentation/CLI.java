@@ -211,7 +211,14 @@ public class CLI {
                 System.out.print("Activity successfully deleted.\n");
                 break;
             case 5:
-
+                if (projectPortfolioManager.getResources(selectedProject).isEmpty()) {
+                    System.out.print("No Resources.\n");
+                } else {
+                    System.out.println("All resources are listed below:");
+                    for (Resource resource: projectPortfolioManager.getResources(selectedProject)) {
+                        System.out.print("* " + resource + "\n");
+                    }
+                }
                 break;
             case 6:
                 System.out.print("Enter the name: ");
@@ -283,7 +290,14 @@ public class CLI {
                 System.out.print("Task successfully deleted.\n");
                 break;
             case 5:
-
+                if (projectPortfolioManager.getResources(selectedActivity).isEmpty()) {
+                    System.out.print("No Resources.\n");
+                } else {
+                    System.out.println("All resources are listed below:");
+                    for (Resource resource: projectPortfolioManager.getResources(selectedActivity)) {
+                        System.out.print("* " + resource + "\n");
+                    }
+                }
                 break;
             case 6:
                 System.out.print("Enter the deliverable: ");
@@ -299,7 +313,7 @@ public class CLI {
                 break;
             case 8:
                 selectedActivity = null;
-                currentState = State.PROJECTS_MENU;
+                currentState = State.PROJECT_SELECTED;
                 break;
             default:
                 System.out.print("Invalid choice.\n");
@@ -307,6 +321,47 @@ public class CLI {
     }
 
     private void taskSelectedMenu() {
+
+        System.out.print("----------------------------\n" +
+                "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
+                "1) Show resource\n" +
+                "2) Assign resource\n" +
+                "3) Unassign resource\n" +
+                "4) Duration by hours\n" +
+                "5) Update description\n" +
+                "6) Back to '" + selectedActivity.getDescription() + "' Activity Menu\n");
+
+        System.out.print("choose menu item: ");
+        switch (Integer.parseInt(scanner.nextLine())) {
+            case 1:
+                if (selectedTask.getResource() == null) {
+                    System.out.print("No resource assigned.\n");
+                } else {
+                    System.out.print("* " + selectedTask.getResource() + "\n");
+                }
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+                System.out.print("Duration by hours:" + selectedTask.getHours() + "\n");
+                break;
+            case 5:
+                System.out.print("Enter the description: ");
+                String updateTaskDescription = scanner.nextLine();
+                selectedTask.setDescription(updateTaskDescription);
+                System.out.print("Task description successfully updated.\n");
+                break;
+            case 6:
+                selectedTask = null;
+                currentState = State.ACTIVITY_SELECTED;
+                break;
+            default:
+                System.out.print("Invalid choice.\n");
+        }
 
     }
 
