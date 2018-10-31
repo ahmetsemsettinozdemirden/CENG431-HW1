@@ -73,14 +73,14 @@ public class CLI {
                 }
                 Thread.sleep(1000);
             } catch (Exception e) {
-                System.out.println("error: " + e.getMessage() + "\n");
+                System.out.println("[ERROR] " + e.getMessage() + "\n");
             }
         }
     }
 
     private void mainMenu() {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Project Portfolio Manager\n" +
                 "1) Projects\n" +
                 "2) Resources\n" +
@@ -109,7 +109,7 @@ public class CLI {
 
     private void projectsMenu() throws ParseException {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Projects\n" +
                 "1) List projects\n" +
                 "2) Select project\n" +
@@ -161,7 +161,7 @@ public class CLI {
 
     private void projectSelectedMenu() throws ParseException {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Project Selected Menu\n" +
                 "     '" + selectedProject.getName() + "' is selected.\n" +
                 "1) List activities\n" +
@@ -244,7 +244,7 @@ public class CLI {
 
     private void activitySelectedMenu() throws ParseException {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Activity Selected Menu\n" +
                 "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
                 "1) List tasks\n" +
@@ -327,7 +327,7 @@ public class CLI {
 
     private void taskSelectedMenu() {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Task Selected Menu\n" +
                 "     '" + selectedActivity.getId() + "' of '" + selectedProject.getName() + "' is selected.\n" +
                 "1) Show resource\n" +
@@ -360,12 +360,14 @@ public class CLI {
                 int assignResourceId = Integer.parseInt(scanner.nextLine());
                 Resource assignResource = projectPortfolioManager.findResource(assignResourceId);
                 projectPortfolioManager.assign(assignResource, selectedTask);
+                System.out.println("Resource assigned to this task.");
                 break;
             case 3:
                 System.out.print("Enter the id of resource: ");
                 int unassignResourceId = Integer.parseInt(scanner.nextLine());
                 Resource unassignResource = projectPortfolioManager.findResource(unassignResourceId);
                 projectPortfolioManager.unassign(unassignResource, selectedTask);
+                System.out.println("Resource unassigned from this task.");
                 break;
             case 4:
                 System.out.print("Duration by hours:" + projectPortfolioManager.getHours(selectedTask) + "\n");
@@ -388,7 +390,7 @@ public class CLI {
 
     private void resourcesMenu() {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Resources\n" +
                 "1) List resources\n" +
                 "2) Select resource\n" +
@@ -415,7 +417,7 @@ public class CLI {
                 currentState = State.RESOURCE_SELECTED;
                 break;
             case 3:
-                System.out.print("----------------------------\n" +
+                System.out.print("--------------------------------\n" +
                         "     Resource Types\n" +
                         "1) Employee\n" +
                         "2) Consultant\n" +
@@ -455,7 +457,7 @@ public class CLI {
 
     private void resourceSelectedMenu() {
 
-        System.out.print("----------------------------\n" +
+        System.out.print("--------------------------------\n" +
                 "     Task Selected Menu\n" +
                 "     '" + selectedResource + "' is selected.\n");
 

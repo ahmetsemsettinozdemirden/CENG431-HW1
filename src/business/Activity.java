@@ -88,11 +88,11 @@ public class Activity implements Serializable, Hourly, Resource.Resourcable {
     @Override
     public String toString() {
         return "Id: " + this.getId() +
-                ", description: " + this.getDescription() +
-                ", deliverable: " + this.getDeliverable() +
-                ", hours: " + this.getHours() +
-                ", start date: " + this.getStartDate().toString() +
-                ", tasks count: " + this.getTasks().size() +
+                ", Description: " + this.getDescription() +
+                ", Deliverable: " + this.getDeliverable() +
+                ", Hours: " + this.getHours() +
+                ", Start date: " + this.getStartDate().toString() +
+                ", Tasks count: " + this.getTasks().size() +
                 " (" + this.getClass().getSimpleName() + ")";
     }
 }

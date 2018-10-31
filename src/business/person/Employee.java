@@ -8,6 +8,6 @@ public class Employee extends Person {
 
     @Override
     public String toString() {
-        return "Id: " + this.getId() + ", name: " + this.getName() + " (" + this.getClass().getSimpleName() + ")";
+        return "Id: " + this.getId() + ", Name: " + this.getName() + " (" + this.getClass().getSimpleName() + ")";
     }
 }

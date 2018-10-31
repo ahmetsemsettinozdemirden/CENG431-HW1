@@ -74,10 +74,10 @@ public class Project implements Serializable, Hourly, Resource.Resourcable {
     @Override
     public String toString() {
         return "Project name: " + this.getName() +
-                ", description: " + this.getDescription() +
-                ", hours: " + this.getHours() +
-                ", start date: " + this.getStartDate().toString() +
-                ", activities count: " + this.getActivities().size() +
+                ", Description: " + this.getDescription() +
+                ", Hours: " + this.getHours() +
+                ", Start date: " + this.getStartDate().toString() +
+                ", Activities count: " + this.getActivities().size() +
                 " (" + this.getClass().getSimpleName() + ")";
     }
 }
